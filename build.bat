@@ -1,7 +1,9 @@
 @echo off
 
-set BOOT_BIN=kotori-os-boot
+set DISK=disk.img
 set AS=fasm
+set SRC=source
+set BUILD=build
 
 if /i "%1"=="clean" goto clean
 if /i "%1"=="run" goto run
@@ -21,7 +23,10 @@ for /r "%SRC%" %%F in (*.asm) do (
 	echo Assembling... %%F
 	fasm "%%F" "%BUILD%\%%~nF.bin"
 )
+fsutil file createnew "%DISK%" 1474560 >nul
 
+rem copy /b "%BUILD%\stage1.bin"+"%BUILD%\stage2.bin" "%DISK%" >nul
+copy /b "%BUILD%\stage1.bin" "%DISK%" >nul
 exit /b 0
 
 :debug
