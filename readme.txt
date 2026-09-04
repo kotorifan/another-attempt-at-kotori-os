@@ -21,10 +21,13 @@ wanted it to become, so to say.
 This is enough talk for now. No code has been written yet
 and who the hell reads this? Anyhow...
 
+
+Copying
+-------
+GPLv3-only
+
 In regards to licensing, I feel bad, because a lot of ideas
 and code is plundered from tutorials, the OSdev Wiki, Stack
 Exchange, and other such places. That being said, I will try
 to keep this project as clean as possible and write the code
-by myself mostly. It's Creative Commons Zero 1.0 -- essentially
-a public domain waiver -- and as such you are free to do 
-whatever you want with the source code.
+by myself whenever I can.

@@ -11,11 +11,6 @@ if /i "%1"=="debug" goto debug
 if "%1"=="" goto build
 if /i "%1"=="build" goto build
 
-:clean
-del build/*
-if exist build rmdir /s /q build
-exit /b 0
-
 :build
 if not exist build mkdir build
 
@@ -23,10 +18,19 @@ for /r "%SRC%" %%F in (*.asm) do (
 	echo Assembling... %%F
 	fasm "%%F" "%BUILD%\%%~nF.bin"
 )
-fsutil file createnew "%DISK%" 1474560 >nul
+rem Maybe useful for later
+rem fsutil file createnew "%DISK%" 1474560
+rem copy /b "%BUILD%\stage1.bin"+"%BUILD%\stage2.bin" "%DISK%" 
+rem copy "%BUILD%\stage1.bin"+"%BUILD%\stage2.bin" "%DISK%"
+rem copy /b "%BUILD%\stage1.bin" "%DISK%" >nul
 
-rem copy /b "%BUILD%\stage1.bin"+"%BUILD%\stage2.bin" "%DISK%" >nul
-copy /b "%BUILD%\stage1.bin" "%DISK%" >nul
+for %%F in ("%BUILD%\stage1.bin") do set SIZE=%%~zF
+if not "%SIZE%"=="512" (
+	echo "Stage1 is not exactly one sector big. Dumbass"
+	exit /b 1
+)
+copy /b "%BUILD%\stage1.bin"+"%BUILD%\stage2.bin" "%DISK%"
+echo Build complete. stage1.bin=%SIZE% bytes
 exit /b 0
 
 :debug
