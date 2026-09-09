@@ -1,6 +1,6 @@
 use16
 
-_print_realmode: 
+_print16: 
 	.loop:
 	lodsb
 	or al, al   
