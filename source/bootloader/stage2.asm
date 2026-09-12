@@ -137,7 +137,7 @@ include "macros.asm"
 _longmode:
 	mov rsp, 0x90000
 	
-;;	call _clear_screen
+	call _clear_screen
 	mov rdi, msg_boot_longmode
 	call _print64
 	 
